@@ -174,12 +174,14 @@ class OSClient(plugin.Plugin):
                        project_name_key="project_id",
                        domain_name_key="domain_name",
                        user_domain_name_key="user_domain_name",
-                       project_domain_name_key="project_domain_name"
+                       project_domain_name_key="project_domain_name",
+                       region_name_key="region_name"
                        ):
         kw = {
             user_key: self.credential.username,
             password_key: self.credential.password,
-            auth_url_key: self.credential.auth_url
+            auth_url_key: self.credential.auth_url,
+            region_name_key: self.credential.region_name,
         }
         if project_name_key:
             kw.update({project_name_key: self.credential.tenant_name})
