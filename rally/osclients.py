@@ -616,16 +616,17 @@ class Swift(OSClient):
             service_type=self.choose_service_type(service_type),
             endpoint_type=self.credential.endpoint_type,
             region_name=self.credential.region_name)
+        kwargs = self._get_auth_info(user_key="user",
+                                     password_key="key",
+                                     auth_url_key="authurl",
+                                     project_name_key="tenant_name")
+        del kwargs['region_name']
         client = swift.Connection(retries=1,
                                   preauthurl=object_api_url,
                                   preauthtoken=kc.auth_token,
                                   insecure=self.credential.insecure,
                                   cacert=self.credential.cacert,
-                                  **self._get_auth_info(
-                                      user_key="user",
-                                      password_key="key",
-                                      auth_url_key="authurl",
-                                      project_name_key="tenant_name")
+                                  **kwargs
                                   )
         return client
 
